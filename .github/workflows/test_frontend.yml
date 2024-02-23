@@ -4,7 +4,7 @@ on:
     branches: [develop,main]
   workflow_dispatch:
 jobs:
-  build-n-test:
+  test:
     runs-on: self-hosted
     steps:
       - name: Checkout
