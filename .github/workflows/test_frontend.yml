@@ -1,7 +1,7 @@
 name: Test Frontend
 on:
   push:
-    branches: [develop]
+    branches: [develop,main]
   workflow_dispatch:
 jobs:
   build-n-test:
@@ -15,7 +15,7 @@ jobs:
           node-version: 18
       - name: Install dependencies
         continue-on-error: false
-        run: cd frontend && npm ci
+        run: cd frontend && npm install
       - name: Run test
         run: cd frontend &&  npm run test
       

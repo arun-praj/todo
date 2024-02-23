@@ -1,0 +1,6 @@
+/node_modules
+/coverage
+.swc
+.next
+.env
+.env.production
