@@ -15,7 +15,7 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      target: dev
+      # target: dev
     ports:
       - 3001:3000
     volumes:
@@ -25,16 +25,16 @@ services:
     restart: always
     
     
-  backend:
-    container_name: todo_backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    ports:
-      - 8001:8000
-    volumes:
-      - ./backend/:/app/backend/
-    restart: always
+  # backend:
+  #   container_name: todo_backend
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 8001:8000
+  #   volumes:
+  #     - ./backend/:/app/backend/
+  #   restart: always
 
   # redis:
 # username: aarun

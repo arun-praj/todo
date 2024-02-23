@@ -1,4 +1,4 @@
-FROM node:18 as base
+FROM node:18 as builder
 
 WORKDIR /app
 
@@ -17,7 +17,9 @@ EXPOSE 3000
 CMD ["npm","run","start"]
 
 #Dev stage
-FROM base as dev
+FROM builder as dev
+
+COPY --from=builder /app /app
 
 ENV NODE_ENV=development
 
