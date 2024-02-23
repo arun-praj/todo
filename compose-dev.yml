@@ -1,0 +1,42 @@
+version: "3"
+services:
+  nginx:
+    container_name: todo_nginx
+    build:
+      context: ./deployment
+      dockerfile: Dockerfile.nginx
+    ports:
+      - 80:80
+    restart: always
+    
+
+  frontend:
+    container_name: todo_frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: dev
+    ports:
+      - 3001:3000
+    volumes:
+      - ./frontend/:/app
+      - /app/node_modules
+      - /app/.next
+    restart: always
+    
+    
+  backend:
+    container_name: todo_backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8000
+    volumes:
+      - ./backend/:/app/backend/
+    restart: always
+
+  # redis:
+# username: aarun
+# password  or9P7YUGvQxQoS0eCFte
+# endpoint: database-1.cxyyig2qimgi.ap-southeast-1.rds.amazonaws.com

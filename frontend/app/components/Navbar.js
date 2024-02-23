@@ -30,11 +30,13 @@ const navitems = [
 const Navbar = () => {
   return (
     <nav role="navigation" className=" flex flex-1  max-w-[275px]  h-screen">
-      <ul className="flex flex-col flex-1">
+
+
+      <ul className="flex flex-col flex-1 ">
         {
           navitems.map((each, idx) => (
             <li key={each.id}>
-              <div className="py-[12px] px-[24px] hover:bg-red-400 select-none items-center justify-center ">
+              <div className="py-[12px] px-[24px] cursor-pointer hover:bg-[--bg-hover] select-none items-center justify-center ">
                 <div className="flex">
                   <div className=" w-[20px] h-[20px]">
                     {each.icon}

@@ -6,6 +6,7 @@
   --bg-primary: gray;
   --bg-separator: #484644;
   --bg-secondary: white;
+  --bg-hover:#323130
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,7 +15,7 @@
     --font-color-primary: #fff;
     --bg-separator: #484644;
     --bg-secondary: #11100f;
-    color: #8fff8f;
+    --bg-hover:#323130
 
   }
 }
