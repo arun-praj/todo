@@ -1,4 +1,4 @@
-name: T Frontend
+name: Test Frontend
 on:
   push:
     branches: [develop]
