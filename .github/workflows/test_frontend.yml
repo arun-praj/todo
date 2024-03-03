@@ -24,5 +24,5 @@ jobs:
           echo -e "Host ssh.shrawankp.com.np\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" > ~/.ssh/config
           # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key.pem
       - name: Test SSH
-        run: sshpass -p ${{secrets.KRATOS_SSH_PASSWORD}} ssh root@${{secrets.KRATOS_SSH_HOST}}
+        run: sshpass -p ${{secrets.KRATOS_SSH_PASSWORD}} ssh root@192.168.1.105
         # run: ssh -i ~/.ssh/key.pem root@shrawankp.com.np
