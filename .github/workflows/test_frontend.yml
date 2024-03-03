@@ -20,7 +20,7 @@ jobs:
         run: cd frontend &&  npm run test
       - name: Connect to cloudflare server as a User 
         run : |
-          touch /root/ssh/config
-          echo -e "Host ssh.example.com\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" >> /root/ssh/config
+          touch ~/ssh/config
+          echo -e "Host ssh.shrawankp.com.np\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" >> ~/ssh/config
       - name: Test SSH
         run: sshpass -p "arun1234" ssh root@shrawankp.com.np
