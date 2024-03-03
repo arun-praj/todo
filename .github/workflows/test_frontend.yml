@@ -1,4 +1,4 @@
-name: Test Frontend
+name: Build and Deploy
 on:
   push:
     branches: [develop,main]
@@ -18,11 +18,32 @@ jobs:
         run: cd frontend && npm install
       - name: Run test
         run: cd frontend &&  npm run test
+  build:
+    runs-on: self-hosted
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+        - name: Setup Node
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
+        - name: Install dependencies
+          continue-on-error: false
+          run: cd frontend && npm ci
+        - name: Build
+          run: npm run build
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+          
       - name: Connect to cloudflare server as a User 
         run : |
           touch ~/.ssh/config
           echo -e "Host ssh.shrawankp.com.np\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" > ~/.ssh/config
           # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key.pem
+      - name: Build Frontend
       - name: Test SSH
         run: sshpass -p ${{secrets.KRATOS_SSH_PASSWORD}} ssh root@192.168.1.105
         # run: ssh -i ~/.ssh/key.pem root@shrawankp.com.np
