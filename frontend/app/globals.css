@@ -30,3 +30,10 @@ html{
     text-wrap: balance;
   }
 }
+
+.glass{
+  background: rgba(58,58,58,0.533);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}

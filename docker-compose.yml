@@ -24,7 +24,6 @@ services:
       - /app/.next
     restart: always
     
-    
   backend:
     container_name: todo_backend
     build:
@@ -37,6 +36,9 @@ services:
     restart: always
 
   # redis:
+
+    # https://www.dronahq.com/
+  # 
 # username: aarun
 # password  or9P7YUGvQxQoS0eCFte
 # endpoint: database-1.cxyyig2qimgi.ap-southeast-1.rds.amazonaws.com
