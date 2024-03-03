@@ -1,0 +1,84 @@
+name: Build and Deploy
+on:
+  push:
+    branches: [develop,main]
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        continue-on-error: false
+        run: cd frontend && npm install
+      - name: Run test
+        run: cd frontend &&  npm run test
+    
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+     
+      - name: Login to Github Container Registry
+        uses: docker/login-actions@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.GITHUB_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          file: Dockerfile
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/todo:latest
+
+          # PAT: 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
+
+
+
+  # build_without_docker:
+  #   runs-on: self-hosted
+  #   steps:
+  #       - name: Checkout
+  #         uses: actions/checkout@v3
+  #       - name: Setup Node
+  #         uses: actions/setup-node@v3
+  #         with:
+  #           node-version: 18
+  #       - name: Install dependencies
+  #         continue-on-error: false
+  #         run: cd frontend && npm ci
+  #       - name: Build
+  #         run: npm run build
+  # deploy:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Login to Github Container Registry
+  #       uses: docker/login-actions@v3
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actior }}
+  #         password: ${{ github.GITHUB_TOKEN }}
+
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+        # 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
+      # - name: Connect to cloudflare server as a User 
+      #   run : |
+      #     touch ~/.ssh/config
+      #     echo -e "Host ssh.shrawankp.com.np\nProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h" > ~/.ssh/config
+      #     # echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/key.pem
+      # - name: Build Frontend
+      # - name: Test SSH
+      #   run: sshpass -p ${{secrets.KRATOS_SSH_PASSWORD}} ssh root@192.168.1.105
+      #   # run: ssh -i ~/.ssh/key.pem root@shrawankp.com.np
